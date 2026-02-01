@@ -1,5 +1,6 @@
 <?php
-require_once __DIR__ . "/config/database.php";
+session_start();
+require_once __DIR__ . "/../config/database.php";
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $nama     = mysqli_real_escape_string($conn, $_POST['nama']);
