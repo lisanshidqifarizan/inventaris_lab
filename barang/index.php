@@ -14,22 +14,42 @@
     <hr>
 
     <form action="barang/create.php" method="POST">
-        <input type="text" name="nama_barang" placeholder="Nama Barang" required>
-        <input type="number" name="stok" placeholder="Jumlah" required>
+        <input
+            type="text"
+            name="kode_barang"
+            placeholder="Kode Barang (LAB-KOM-009)"
+            required
+        >
+
+        <input
+            type="text"
+            name="nama_barang"
+            placeholder="Nama Barang"
+            required
+        >
+
+        <input
+            type="number"
+            name="stok"
+            placeholder="Jumlah"
+            required
+        >
+
         <select name="kondisi">
             <option value="Baik">Baik</option>
             <option value="Rusak Ringan">Rusak Ringan</option>
             <option value="Rusak Berat">Rusak Berat</option>
-            <option value="Dipinjam">Dipinjam</option>
-            <option value="Tidak Tersedia">Tidak Tersedia</option>
         </select>
+
         <button type="submit">Tambah Barang</button>
     </form>
+
 
     <br>
 
     <table border="1" cellpadding="8">
         <tr>
+            <th>Kode</th>
             <th>Nama</th>
             <th>Jumlah</th>
             <th>Kondisi</th>
@@ -38,6 +58,7 @@
 
         <?php while ($row = mysqli_fetch_assoc($result)) : ?>
         <tr>
+            <td><?= htmlspecialchars($row['kode_barang']) ?></td>
             <td><?= htmlspecialchars($row['nama_barang']) ?></td>
             <td><?= $row['stok'] ?></td>
             <td><?= $row['kondisi'] ?></td>

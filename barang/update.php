@@ -11,15 +11,17 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $nama    = $_POST["nama_barang"];
     $stok    = $_POST["stok"];
     $kondisi = $_POST["kondisi"];
+    $kode = $_POST["kode_barang"];
 
     $query = "UPDATE barang SET
+              kode_barang = '$kode',
               nama_barang = '$nama',
               stok = '$stok',
               kondisi = '$kondisi'
               WHERE id = $id";
 
     if (mysqli_query($conn, $query)) {
-        header("Location: ../dashboard.php");
+        header("Location: ../dashboard.php?page=barang");
         exit;
     } else {
         die("Gagal update data");
@@ -45,6 +47,13 @@ if (!$barang) {
     <form method="POST">
         <input
             type="text"
+            name="kode_barang"
+            value="<?= htmlspecialchars($barang['kode_barang']) ?>"
+            required
+        >
+
+        <input
+            type="text"
             name="nama_barang"
             value="<?= htmlspecialchars($barang['nama_barang']) ?>"
             required
@@ -59,13 +68,7 @@ if (!$barang) {
 
         <select name="kondisi">
             <?php
-            $kondisiList = [
-                "Baik",
-                "Rusak Ringan",
-                "Rusak Berat",
-                "Dipinjam",
-                "Tidak Tersedia"
-            ];
+            $kondisiList = ["Baik","Rusak Ringan","Rusak Berat"];
             foreach ($kondisiList as $k) :
             ?>
                 <option value="<?= $k ?>"
@@ -76,7 +79,8 @@ if (!$barang) {
         </select>
 
         <button type="submit">Simpan</button>
-        <a href="../dashboard.php">Batal</a>
+        <a href="../dashboard.php?page=barang">Batal</a>
     </form>
+
 </body>
 </html>
